@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.9.13-management-alpine
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: 'secret'
+      RABBITMQ_DEFAULT_USER: 'rabbitmq'
+      RABBITMQ_DEFAULT_PASS: 'rabbitmq'
+      RABBITMQ_DEFAULT_VHOST: "/"
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+
+volumes:
+  redis:
+  rabbitmq:
+    driver: local
+
+networks:
+  backend:
+    driver: bridge
